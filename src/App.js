@@ -1,10 +1,8 @@
-
-
-
+import StopWatch from "./StopWatch";
 function App() {
   return (
     <div className="App">
-        <h1> hey </h1>
+        <StopWatch/>
     </div>
   );
 }
