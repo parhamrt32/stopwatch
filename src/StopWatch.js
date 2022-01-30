@@ -7,24 +7,35 @@ export default function StopWatch(){
 
    const handleClick = () => setStart( preStart => !preStart )
 
-   
-    React.useEffect(() => {
-        let interval;
+   React.useEffect(() => {
+       let interval = null;
 
-        while( !start ){
-            interval = setInterval( () => setTime( t => t +1 ) , 1000 );
-        }
-        
-     
-     
-    } )
+       if(start === false){
+           interval = setInterval(() => {
+               setTime(t => t + 1)
+           }, 1000);
+       }else{
+        clearInterval(interval);
+
+       }
+       return () => {
+        clearInterval(interval);
+       };
+   }, [start])
+   
+   function handleReset(){
+       setTime(0);
+
+   }
 
 
     return(
         <div className="stopwatch_frame">
             <p className="time"> {time} </p>
-            <button onClick={handleClick} className="btn"> {start ? "Start" : "Reset"} </button>
-
+            <div className="btns"> 
+                <button onClick={handleClick} className="btn"> {start ? "Start" : "Stop"} </button>
+                <button className="btn" onClick={handleReset} > Reset </button>
+            </div>
         </div>
     )
 }
